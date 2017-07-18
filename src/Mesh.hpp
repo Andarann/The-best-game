@@ -71,17 +71,27 @@ struct Texture {
 
 class Mesh {
 public:
+
     Mesh();
     Mesh(std::vector<Vertex>& vertices_, std::vector<unsigned int>& indices_, std::vector<Texture>& textures_);
+    Mesh(Mesh const& copied)
+    {
+        vertices = copied.vertices;
+        indices = copied.indices;
+        textures = copied.textures;
+
+        setupMesh();
+    };
+
     ~Mesh();
+
     void Draw(sf::Shader& shader);
 
     void setupMesh();
 
     unsigned int getVerticesNumber() const {return vertices.size();};
 
-    Mesh cutMeshInTwo(float a, float b, float c, float d);//Effectively cut the triangles, adding new vertices
-    Mesh spreadTrianglesAroundPlane(float a, float b, float c, float d);//Just spread the triangles by size of their area above/under the plane
+    Mesh cutMeshInTwo(float a, float b, float c, float d, glm::vec3 newMeshVector = glm::vec3(0,0,0));//Effectively cut the triangles, adding new vertices
 
 private:
     GLuint VBO, EBO;

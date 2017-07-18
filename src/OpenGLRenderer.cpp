@@ -27,14 +27,15 @@ void OpenGLRenderer::Init(sf::RenderTarget& obj)
     obj.pushGLStates();
 
     dummyModel.loadModel("resources/objects/nanosuit/nanosuit.obj");
+    /*for (int i(-20) ; i < 20 ; i++)
+        dummyModel.cutModelAccordingToPlane(1.0, 0.0, 0.0, i, glm::vec3(1.0,0.0,0.0));
 
-
-
-    for (int i(-20) ; i < 0 ; i++)
-        dummyModel.cutModelAccordingToPlane(1.0,1.0,0.0,i);
+    for (int i(-20) ; i < 20 ; i++)
+        dummyModel.cutModelAccordingToPlane(0.0, 1.0, 0.0, i, glm::vec3(0.0,1.0,0.0));*/
 
     myShader.loadFromFile("src/shaders/model_loading_vertex.txt", "src/shaders/model_loading_frag.txt");
 
+    firstPointSet = false;
     init = true;
 
     obj.popGLStates();
@@ -57,10 +58,12 @@ void OpenGLRenderer::render(sf::RenderTarget& target, Camera& camObj, sf::Window
         glm::mat3 normalMat;
 
         model = glm::mat4();
-        model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // translate it down so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// it's a bit too big for our scene, so scale it down
+        model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
+
 
         view = camObj.getViewMatrix();
+
         projection = glm::perspective(1.0f, (float)target.getSize().x / target.getSize().y, 0.1f, 100.0f);
 
         normalMat = glm::transpose(glm::inverse(glm::mat3(model)));
@@ -76,6 +79,16 @@ void OpenGLRenderer::render(sf::RenderTarget& target, Camera& camObj, sf::Window
 
         dummyModel.Draw(myShader);
 
+        for (int i(0) ; i < 10 ; i++)
+        {
+            model = glm::mat4();
+            model = glm::translate(model, glm::vec3(0.0f, -1.75f, i));
+            model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
+
+            myShader.setUniform("model", sf::Glsl::Mat4(glm::value_ptr(model)));
+
+            dummyModel.Draw(myShader);
+        }
 
         sf::Shader::bind(NULL);
     }

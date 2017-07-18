@@ -31,6 +31,10 @@ private:
     sf::Shader myShader;
 
     sf::Clock testClock;
+    bool firstPointSet;
+    glm::vec3 firstPoint;
+    glm::vec3 secondPoint;
+    glm::mat4 blockedViewMatrix;
 };
 
 

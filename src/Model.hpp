@@ -38,7 +38,7 @@ class Model
 
         void Draw(sf::Shader& shader);
 
-        void cutModelAccordingToPlane(float a, float b, float c, float d);
+        void cutModelAccordingToPlane(float a, float b, float c, float d, glm::vec3 newMeshVec = glm::vec3(0,0,0));
     private:
         std::vector<Mesh> meshes;
         std::string directory;

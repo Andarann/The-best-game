@@ -165,20 +165,30 @@ void Model::Draw(sf::Shader& shader)
 
 }
 
-void Model::cutModelAccordingToPlane(float a, float b, float c, float d)
+void Model::cutModelAccordingToPlane(float a, float b, float c, float d, glm::vec3 newMeshVec)
 {
     std::vector<Mesh> newMeshes;
 
     for (int i(0) ; i < meshes.size() ; i++)
     {
-        newMeshes.push_back(meshes[i].cutMeshInTwo(a,b,c,d));
+        newMeshes.push_back(meshes[i].cutMeshInTwo(a,b,c,d, newMeshVec));
     }
+
+    unsigned int numVert(0);
 
     for (int i(0) ; i < newMeshes.size() ; i++)
     {
         if (newMeshes[i].getVerticesNumber() > 0)
+        {
             meshes.push_back(newMeshes[i]);
+        }
     }
+
+    for (int i(0) ; i < meshes.size() ; i++)
+        numVert += meshes[i].getVerticesNumber();
+
+
+    std::cout << numVert << " vertices so far\n";
 }
 
 GLuint TextureFromFile(const char *path, const std::string &directory, bool gamma)
