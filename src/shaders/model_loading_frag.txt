@@ -4,6 +4,7 @@ out vec4 FragColor;
 in vec3 Normal;
 in vec3 FragPos;
 in vec2 TexCoords;
+in vec4 vertexPos;
 
 struct Material{
 	sampler2D texture_diffuse1;
@@ -37,5 +38,8 @@ void main()
 	
 	vec3 result = attenuation * ( ambient + specular + diffuse );
 	
+
 	FragColor = vec4(result, 1.0);
+	
+	//FragColor = vec4(norm * FragPos, 1.0);
 }

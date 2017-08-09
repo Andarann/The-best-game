@@ -3,6 +3,8 @@
 
 Camera::Camera()
 {
+    updating = true;
+
     camUp = glm::vec3(0.0f,1.0f,0.0f);
 
     pos = glm::vec3(0,1,0);
@@ -15,6 +17,8 @@ Camera::Camera()
 
 Camera::Camera(float yaw_, float pitch_, glm::vec3 pos_, glm::vec3 camUp_ = glm::vec3(0.0f,1.0f,0.0f))
 {
+    updating = true;
+
     yaw = yaw_;
     pitch = pitch_;
     pos = pos_;
@@ -52,7 +56,7 @@ void Camera::adaptToEvents(bool toFront, bool toBack, bool toLeft, bool toRight,
 
     oldMousePos = mousePos;
 
-    if (applyChanges)
+    if (applyChanges && updating)
     {
         yaw += offset.x * sensitivity;
         pitch += offset.y * sensitivity;

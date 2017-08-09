@@ -30,7 +30,7 @@ class Model
         Model(std::string path);
         ~Model();
 
-        void loadModel(std::string path);
+        bool loadModel(std::string path);
         void processNode(aiNode *node, const aiScene *scene);
         Mesh processMesh(aiMesh *mesh, const aiScene *scene);
         void loadMaterialTextures(std::vector<Texture>& target, aiMaterial *mat, aiTextureType type,
@@ -39,6 +39,8 @@ class Model
         void Draw(sf::Shader& shader);
 
         void cutModelAccordingToPlane(float a, float b, float c, float d, glm::vec3 newMeshVec = glm::vec3(0,0,0));
+
+        unsigned int giveNumberOfMeshes() const {return meshes.size();};
     private:
         std::vector<Mesh> meshes;
         std::string directory;

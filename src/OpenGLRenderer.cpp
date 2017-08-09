@@ -26,7 +26,7 @@ void OpenGLRenderer::Init(sf::RenderTarget& obj)
 {
     obj.pushGLStates();
 
-    dummyModel.loadModel("resources/objects/nanosuit/nanosuit.obj");
+    dummyModel.loadModel("resources/objects/cube.obj");
     /*for (int i(-20) ; i < 20 ; i++)
         dummyModel.cutModelAccordingToPlane(1.0, 0.0, 0.0, i, glm::vec3(1.0,0.0,0.0));
 

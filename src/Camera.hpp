@@ -18,6 +18,7 @@ public:
     void setAngle(float yaw_, float pitch_);
     void setPosition(glm::vec3& newPos);
     void adaptToEvents(bool toFront, bool toBack, bool toLeft, bool toRight, glm::vec2 mousePos, bool applyChanges = true);//That is, mouse and keyboard
+    void allowUpdating(bool allow) {updating = allow;};
 
     glm::mat4 getViewMatrix() const;
 
@@ -35,6 +36,8 @@ private:
     float pitch;
     float speed;
     float sensitivity;
+
+    bool updating;
 
     sf::Clock speedClock;
 

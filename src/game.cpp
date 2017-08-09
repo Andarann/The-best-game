@@ -4,6 +4,7 @@
 #include "OpenGLRenderer.hpp"
 
 #include "RichText+.hpp"
+#include "Entity.hpp"
 
 unsigned int wishedFPS = 60;
 unsigned int Path::currentID = 0;
@@ -18,6 +19,8 @@ void gameLoop()
     mySlider.setBackgroundTexture("myImage.png");
     mySlider.setSliderTexture("Slider.png");
     mainSystem.addWidget(mySlider, "me");
+
+    Entity myEntity("Entity", 5,5,5, "resources/objects/nanosuit/nanosuit.obj");
 
     for (int i(1); i < 10 ; i++)
     {
@@ -79,11 +82,11 @@ void System::Render()
 
     renderOpenGL(windowMain);
 
-    //windowMain.pushGLStates();
+    windowMain.pushGLStates();
 
-        //renderWidgets();
+        renderWidgets();
 
-    //windowMain.popGLStates();
+    windowMain.popGLStates();
 
     windowMain.display();
 
