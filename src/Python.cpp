@@ -60,8 +60,9 @@ pythonEntity::pythonEntity(std::string className, double x, double y, double z)
                 variableName = strm.str();
                 strm.str(std::string());
 
-                strm << "import " << className << "\n";
-                strm << variableName << " = " << className << "." << className << "(" << x << ',' << y << ',' << z << ")\n";
+                strm << "import imp\n";
+                strm << "temp = imp.load_source('" << className << "', 'scripts/entities/" << className << ".py')\n";
+                strm << variableName << " = temp." << className << "(" << x << ',' << y << ',' << z << ")\n";
 
                 boost::python::exec(strm.str().c_str(), pythonInterpreter::global);
 
